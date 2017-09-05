@@ -1,4 +1,4 @@
-#多渠道打包自动化脚本 
+#Android多渠道打包V2签名自动化脚本 
 ##介绍
 基于walle的多渠道打包，Walle本身是做好的，但是上传到360加固后v2签名就被干掉了，所以要重新签名，重新写入渠道  
 具体实现步骤参考http://18e0c209.wiz01.com/share/s/0oUc890scQDx2tkMAj02NI0c3Ubmms31ckdr2UwE0E2X-bzY  
