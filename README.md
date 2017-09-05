@@ -19,14 +19,21 @@ Jay-Goo写了个python脚本，非常棒，但是不是所有人都安装了pyth
 4. 添加渠道文件channel, 不需要后缀名，需要多少个渠道一行一行写上去就行，如果纯粹想重新签名，不需要分渠道的，请忽略这一步；
 5. 双击sign.bat 等待执行完成就可以了，输入任意键退出。
 
-##鸣谢
-#####感谢 Walle 
-提供多渠道打包解决方案，美团团队付出是最大的，从V1打包到
-#####感谢 子勰bihe0832  https://github.com/bihe0832/Android-GetAPKInfo
-#####感谢 Jay-Goo 用python语言写了 https://github.com/Jay-Goo/ProtectedApkResignerForWalle
+##鸣谢  
 
-#####不感谢 360加固
+#####感谢 Walle  
+ 
+提供多渠道打包解决方案，美团团队付出是最大的，从V1打包到  
+
+#####感谢 子勰bihe0832  https://github.com/bihe0832/Android-GetAPKInfo  
+
+#####感谢 Jay-Goo 用python语言写了 https://github.com/Jay-Goo/ProtectedApkResignerForWalle  
+
+
+#####不感谢 360加固  
+
 因为360加固把我们的V2签名给去掉了，所以我们才需要写这些东西，开玩笑啦！！！  
-因为加固的工作就是要往apk里加入加密的东西，如果不去掉V2就没法加固了，所以：
+因为加固的工作就是要往apk里加入加密的东西，如果不去掉V2就没法加固了，所以：  
+
 #####也应该感谢360加固等第三方加固平台，免费为我们的apk安全保驾护航！
 
