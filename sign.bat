@@ -54,6 +54,8 @@ echo channelFilePath:%channelFilePath%
 echo isWriteChannel:%isWriteChannel%
 echo isZipalign:%isZipalign% 
 
+::获取盘符
+%sdkPath:~0,2% 
 cd  %sdkPath%
 ::对齐
 if "%isZipalign%"=="true" (
@@ -67,6 +69,8 @@ if exist %signedFilePath% del %signedFilePath%
 ::签名
 call apksigner sign --ks %keyPath% --ks-key-alias %alias% --ks-pass pass:%storePassword% --key-pass pass:%keyPassword% --out %signedFilePath% %filePath%
 
+::获取libPath盘符
+%libPath:~0,2% 
 cd  %libPath%
 
 ::检查V2签名是否正确
