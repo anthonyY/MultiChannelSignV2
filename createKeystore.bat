@@ -18,7 +18,9 @@ for /f "tokens=1,2 delims==" %%i in (ctreateConfig.properties) do (
 )
 set create=keytool -genkey -alias %alias% -keyalg RSA -validity %day% -keystore %keyPath%  -storepass pass:%storePassword% -keypass pass:%keyPassword% -dname "CN=%name%, OU=%organizationalUnit%, O=%organization%, L=%city%, ST=%province%, C=%countryCode%"
 	
-if not exist %keyPath% (
+if exist %keyPath% (
+	echo %keyPath% is exsit
+) else (ssd
 	call %create%
 	echo %create% 
 )
