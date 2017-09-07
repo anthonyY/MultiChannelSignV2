@@ -5,15 +5,10 @@
 set currentPath=%cd%
 set libPath=%currentPath%\libs
 set checkV2JarFilePath=%libPath%\CheckAndroidV2Signature.jar
-
-
-for /f "tokens=1,2 delims==" %%i in (checkV2Config.properties) do (
-	if "%%i"=="filePath" set filePath=%%j
-)
+set filePath=%1
 
 echo checkV2Path:%checkV2JarFilePath%
 echo signedFilePath:%signedFilePath%
-
 
 ::ªÒ»°libPath≈Ã∑˚
 %libPath:~0,2% 
