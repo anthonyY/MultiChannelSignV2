@@ -10,7 +10,7 @@ set outputFilePath=%currentPath%\channels
 set channelFilePath=%currentPath%\channel
 
 
-for /f "tokens=1,2 delims==" %%i in (config.properties) do (
+for /f "tokens=1,2 delims==" %%i in (signConfig.properties) do (
 if "%%i"=="sdkPath" set sdkPath=%%j
 if "%%i"=="keyPath" set keyPath=%%j
 if "%%i"=="alias" set alias=%%j

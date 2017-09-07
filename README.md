@@ -1,4 +1,24 @@
-#Android多渠道打包V2签名自动化脚本  
+#创建签名文件自动化脚本  createKeystore.bat  
+##使用方法 
+1. 只需要两个文件createKeystore.bat  和 ctreateConfig.properties
+3. 修改ctreateConfig.properties 的内容；
+    * keyPath： keystore的文件路径  
+    * alias： 别名
+    * keyPassword： key的密码
+    * storePassword： store的密码    
+    * day=20000 有效期（天）  
+	* name=Anthony Yang 姓名  
+	* organizationalUnit=aiitec  组织单位  
+	* organization=aiitec 组织
+	* city=guangzhou  城市
+	* province=guangdong  省份或区域  
+	* countryCode=cn  国家代码
+
+
+4. 双击createKeystore.bat 执行就自动生成了一个keystore文件
+
+
+#Android多渠道打包V2签名自动化脚本  sign.bat
 
 ##介绍  
 
@@ -9,7 +29,7 @@ Jay-Goo写了个python脚本，非常棒，但是不是所有人都安装了pyth
 ##使用方法
 1. 首先下载本项目的代码；
 2. 把apk文件复制到当前目录下；
-3. 改config.properties 的内容；
+3. 修改改signConfig.properties 的内容；
     * sdkPath： Android SDK buildTool 的目录，必须25以上  
     * keyPath： keystore的文件路径  
     * alias： 别名
@@ -39,3 +59,18 @@ Jay-Goo写了个python脚本，非常棒，但是不是所有人都安装了pyth
 
 #####也应该感谢360加固等第三方加固平台，免费为我们的apk安全保驾护航！
 
+
+
+
+#检查apk是否是V2签名的自动化脚本  checkV2.bat 
+##使用方法 
+1. 依赖libs\CheckAndroidV2Signature.jar 另外只需要两个文件checkV2.bat  和 checkV2Config.properties
+2. 修改checkV2Config.properties 的内容；
+    * filePath： apk的文件路径  
+3. 双击checkV2.bat 看到输出{"ret":0,"msg":"ok","isV2":true,"isV2OK":true}就对了，如果不是V2则是isV2OK:false
+
+  
+  
+  
+  
+  
