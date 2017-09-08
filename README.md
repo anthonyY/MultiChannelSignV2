@@ -1,7 +1,7 @@
 #创建签名文件自动化脚本  createKeystore.bat  
 ##使用方法 
 1. 只需要两个文件createKeystore.bat  和 ctreateConfig.properties
-3. 修改ctreateConfig.properties 的内容；
+2. 修改ctreateConfig.properties 的内容；
     * keyPath： keystore的文件路径  
     * alias： 别名
     * keyPassword： key的密码
@@ -15,7 +15,7 @@
 	* countryCode=cn  国家代码
 
 
-4. 双击createKeystore.bat 执行就自动生成了一个keystore文件
+3. 双击createKeystore.bat 执行就自动生成了一个keystore文件
 
 
 #Android多渠道打包V2签名自动化脚本  sign.bat
@@ -61,13 +61,28 @@ Jay-Goo写了个python脚本，非常棒，但是不是所有人都安装了pyth
 
 
 
+#获取keystore文件的md5签名脚本  GetMd5FromKeystore.bat  
+##使用方法 
+1. 只需要两个文件GetMd5FromKeystore.bat   和 GetMd5Config.properties
+2. 修改 GetMd5Config.properties 的内容；
+    * keyPath： keystore的文件路径  
+    * alias： 别名
+    * storePassword： store的密码    
+3. 双击GetMd5FromKeystore.bat 执行就自动生成了一个md5AndSha1.txt文件  
+里面内容包含
+md5 1cfcc9b5351280db9955b4207ee8cb23                                                       
+SHA1: BA:F8:BB:E8:EA:13:94:69:BB:26:1B:34:7E:C7:F5:84:07:CB:FD:30 
+SHA256: 7E:EC:2D:88:BA:3F:0C:3C:9F:77:18:72:54:0C:59:35:E7:82:41:57:C3:EB:41:C0:97:98:32:C8:CC:EB:A6:D7 
+
+
+
 
 #检查apk是否是V2签名的自动化脚本  checkV2.bat 
 ##使用方法 
-1. 依赖libs\CheckAndroidV2Signature.jar 另外只需要两个文件checkV2.bat  和 checkV2Config.properties
-2. 修改checkV2Config.properties 的内容；
-    * filePath： apk的文件路径  
-3. 双击checkV2.bat 看到输出{"ret":0,"msg":"ok","isV2":true,"isV2OK":true}就对了，如果不是V2则是isV2OK:false
+1. 依赖libs\CheckAndroidV2Signature.jar 一个文件checkV2.bat  
+2. 修把apk文件拖动到checkV2.bat即可打开命令行窗口，  
+输出{"ret":0,"msg":"ok","isV2":true,"isV2OK":true}就对了，如果不是V2则是isV2OK:false  
+记住是拖动apk哦，不是双击打开。
 
   
   
