@@ -67,7 +67,14 @@ if "%isZipalign%"=="true" (
 ::如果存在签名文件就删除
 if exist %signedFilePath% del %signedFilePath%
 ::签名
-call apksigner sign --ks %keyPath% --ks-key-alias %alias% --ks-pass pass:%storePassword% --key-pass pass:%keyPassword% --out %signedFilePath% %filePath%
+if "%isZipalign%"=="true" (
+	call apksigner sign --ks %keyPath% --ks-key-alias %alias% --ks-pass pass:%storePassword% --key-pass pass:%keyPassword% --out %signedFilePath% %zipalignFilePath%  
+	::删除对齐文件，因为这个文件是用来对齐后再签名的，签名完成就有用了
+	del %zipalignFilePath%
+) else (
+	call apksigner sign --ks %keyPath% --ks-key-alias %alias% --ks-pass pass:%storePassword% --key-pass pass:%keyPassword% --out %signedFilePath% %filePath%
+)
+
 
 ::获取libPath盘符
 %libPath:~0,2% 
