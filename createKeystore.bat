@@ -20,7 +20,7 @@ set create=keytool -genkey -alias %alias% -keyalg RSA -validity %day% -keystore 
 	
 if exist %keyPath% (
 	echo %keyPath% is exsit
-) else (ssd
+) else (
 	call %create%
 	echo %create% 
 )

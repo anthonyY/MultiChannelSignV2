@@ -8,7 +8,7 @@ set checkV2JarFilePath=%libPath%\CheckAndroidV2Signature.jar
 set filePath=%1
 
 echo checkV2Path:%checkV2JarFilePath%
-echo signedFilePath:%signedFilePath%
+echo filePath:%filePath%
 
 ::ªÒ»°libPath≈Ã∑˚
 %libPath:~0,2% 

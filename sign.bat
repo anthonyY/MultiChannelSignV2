@@ -86,7 +86,7 @@ if "%isWriteChannel%"=="true" (
 	call java -jar %walleJarFilePath% batch -f %channelFilePath% %signedFilePath% %outputFilePath%
 )
 
-if "%errorlevel%"=="0" (echo success,please press any key to exsit请按任意键退出) else (echo error) 
+if "%errorlevel%"=="0" (echo success,please press any key to exit请按任意键退出) else (echo error) 
 ::rem 程序错会返回1，成功为0
 
 pause>nul
