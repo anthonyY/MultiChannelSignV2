@@ -20,6 +20,8 @@ if "%%i"=="filePath" set filePath=%%j
 if "%%i"=="isWriteChannel" set isWriteChannel=%%j
 if "%%i"=="isZipalign" set isZipalign=%%j
 )
+set dropFile=%1
+if defined dropFile (set filePath=%dropFile%) 
 ::echo 截取前5个字符：
 ::echo %ifo:~0,5%
 ::echo 截取最后5个字符：
@@ -30,12 +32,14 @@ if "%%i"=="isZipalign" set isZipalign=%%j
 ::echo %ifo:~3,5%
 ::echo 从倒数第14个字符开始，截取5个字符：
 ::echo %ifo:~-14,5%
-
-set zipalignFilePath=%filePath:~0,-4%_zipalign.apk
+set outputPath=%currentPath%\output\
+if not exist %outputPath% md %outputPath%
+for %%a in (%filePath%) do set fineName=%%~nxa
+set zipalignFilePath=%outputPath%%fineName:~0,-4%_zipalign.apk
 if "%isZipalign%"=="true" (
-	set signedFilePath=%filePath:~0,-4%_zipalign_signed.apk
+	set signedFilePath=%outputPath%%fineName:~0,-4%_signed.apk
 ) else (
-	set signedFilePath=%filePath:~0,-4%_signed.apk
+	set signedFilePath=%outputPath%%fineName:~0,-4%_signed.apk
 )
 
 echo libPath:%libPath%
@@ -96,4 +100,5 @@ if "%isWriteChannel%"=="true" (
 if "%errorlevel%"=="0" (echo success,please press any key to exit请按任意键退出) else (echo error) 
 ::rem 程序错会返回1，成功为0
 
-pause>nul
+::pause>nul
+
