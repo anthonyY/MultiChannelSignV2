@@ -1,5 +1,5 @@
-#创建签名文件自动化脚本  createKeystore.bat  
-##使用方法 
+# 创建签名文件自动化脚本  createKeystore.bat  
+## 使用方法 
 1. 只需要两个文件createKeystore.bat  和 ctreateConfig.properties
 2. 修改ctreateConfig.properties 的内容；
     * keyPath： keystore的文件路径  
@@ -18,15 +18,15 @@
 3. 双击createKeystore.bat 执行就自动生成了一个keystore文件
 
 
-#Android多渠道打包V2签名自动化脚本  sign.bat
+# Android多渠道打包V2签名自动化脚本  sign.bat
 
-##介绍  
+## 介绍  
 
 基于walle的多渠道打包，Walle本身是做好的，但是上传到360加固后v2签名就被干掉了，所以要重新签名，重新写入渠道  
 具体实现步骤参考http://18e0c209.wiz01.com/share/s/0oUc890scQDx2tkMAj02NI0c3Ubmms31ckdr2UwE0E2X-bzY  
 Jay-Goo写了个python脚本，非常棒，但是不是所有人都安装了python环境，所以我基于 Jay-Goo的代码改成bat脚本，那么没有安装python的同学就有福了
 
-##使用方法
+## 使用方法
 1. 首先下载本项目的代码；
 2. 把apk文件复制到当前目录下；
 3. 修改改signConfig.properties 的内容；
@@ -41,28 +41,28 @@ Jay-Goo写了个python脚本，非常棒，但是不是所有人都安装了pyth
 4. 添加渠道文件channel, 不需要后缀名，需要多少个渠道一行一行写上去就行，如果纯粹想重新签名，不需要分渠道的，请忽略这一步；
 5. 双击sign.bat 等待执行完成就可以了，输入任意键退出。
 
-##鸣谢  
+## 鸣谢  
 
-#####感谢 Walle  
+##### 感谢 Walle  
  
 提供多渠道打包解决方案，美团团队付出是最大的，从V1打包到  
 
-#####感谢 子勰bihe0832  https://github.com/bihe0832/Android-GetAPKInfo  
+##### 感谢 子勰bihe0832  https://github.com/bihe0832/Android-GetAPKInfo  
 
-#####感谢 Jay-Goo 用python语言写了 https://github.com/Jay-Goo/ProtectedApkResignerForWalle  
+##### 感谢 Jay-Goo 用python语言写了 https://github.com/Jay-Goo/ProtectedApkResignerForWalle  
 
 
-#####不感谢 360加固  
+##### 不感谢 360加固  
 
 因为360加固把我们的V2签名给去掉了，所以我们才需要写这些东西，开玩笑啦！！！  
 因为加固的工作就是要往apk里加入加密的东西，如果不去掉V2就没法加固了，所以：  
 
-#####也应该感谢360加固等第三方加固平台，免费为我们的apk安全保驾护航！
+##### 也应该感谢360加固等第三方加固平台，免费为我们的apk安全保驾护航！
 
 
 
-#获取keystore文件的md5签名脚本  GetMd5FromKeystore.bat  
-##使用方法 
+#  获取keystore文件的md5签名脚本  GetMd5FromKeystore.bat  
+##  使用方法 
 1. 只需要两个文件GetMd5FromKeystore.bat   和 GetMd5Config.properties
 2. 修改 GetMd5Config.properties 的内容；
     * keyPath： keystore的文件路径  
@@ -77,8 +77,8 @@ SHA256: 7E:EC:2D:88:BA:3F:0C:3C:9F:77:18:72:54:0C:59:35:E7:82:41:57:C3:EB:41:C0:
 
 
 
-#检查apk是否是V2签名的自动化脚本  checkV2.bat 
-##使用方法 
+#  检查apk是否是V2签名的自动化脚本  checkV2.bat 
+##  使用方法 
 1. 依赖libs\CheckAndroidV2Signature.jar 一个文件checkV2.bat  
 2. 修把apk文件拖动到checkV2.bat即可打开命令行窗口，  
 输出{"ret":0,"msg":"ok","isV2":true,"isV2OK":true}就对了，如果不是V2则是isV2OK:false  
