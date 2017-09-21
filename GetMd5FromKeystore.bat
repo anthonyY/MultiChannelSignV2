@@ -1,4 +1,4 @@
-:: 从keystore 获取MD5和sha1
+﻿:: 从keystore 获取MD5和sha1
 @echo off
 setlocal EnableDelayedExpansion 
 
@@ -11,6 +11,9 @@ if "%%i"=="keyPath" set keyPath=%%j
 if "%%i"=="alias" set alias=%%j
 if "%%i"=="storePassword" set storePassword=%%j
 )
+
+set dropFile=%1
+if defined dropFile (set keyPath=%dropFile%) 
 
 ::获取盘符
 %javaPath:~0,2% 
