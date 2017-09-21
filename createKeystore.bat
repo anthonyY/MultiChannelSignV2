@@ -16,7 +16,7 @@ for /f "tokens=1,2 delims==" %%i in (ctreateConfig.properties) do (
 	if "%%i"=="province" set province=%%j
 	if "%%i"=="countryCode" set countryCode=%%j
 )
-set create=keytool -genkey -alias %alias% -keyalg RSA -validity %day% -keystore %keyPath%  -storepass pass:%storePassword% -keypass pass:%keyPassword% -dname "CN=%name%, OU=%organizationalUnit%, O=%organization%, L=%city%, ST=%province%, C=%countryCode%"
+set create=keytool -genkey -alias %alias% -keyalg RSA -validity %day% -keystore %keyPath%  -storepass %storePassword% -keypass %keyPassword% -dname "CN=%name%, OU=%organizationalUnit%, O=%organization%, L=%city%, ST=%province%, C=%countryCode%"
 	
 if exist %keyPath% (
 	echo %keyPath% is exsit
