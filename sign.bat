@@ -1,6 +1,6 @@
-@echo off
+ï»¿@echo off
 
-:: ¶ÁÈ¡ÅäÖÃÎÄ¼þ
+:: è¯»å–é…ç½®æ–‡ä»¶
 
 set currentPath=%cd%
 set libPath=%currentPath%\libs
@@ -20,17 +20,27 @@ if "%%i"=="filePath" set filePath=%%j
 if "%%i"=="isWriteChannel" set isWriteChannel=%%j
 if "%%i"=="isZipalign" set isZipalign=%%j
 )
+
+:: åˆ é™¤sdkè·¯å¾„å³è¾¹çš„ç©ºæ ¼
+:delSdkPathRightSpace
+if "%sdkPath:~-1%"==" " set sdkPath=%abc:~0,-1%&&goto delSdkPathRightSpace
+
+:: åˆ é™¤libè·¯å¾„å³è¾¹çš„ç©ºæ ¼
+:delLibPathRightSpace
+if "%libPath:~-1%"==" " set libPath=%abc:~0,-1%&&goto delLibPathRightSpace
+
+
 set dropFile=%1
 if defined dropFile (set filePath=%dropFile%) 
-::echo ½ØÈ¡Ç°5¸ö×Ö·û£º
+::echo æˆªå–å‰5ä¸ªå­—ç¬¦ï¼š
 ::echo %ifo:~0,5%
-::echo ½ØÈ¡×îºó5¸ö×Ö·û£º
+::echo æˆªå–æœ€åŽ5ä¸ªå­—ç¬¦ï¼š
 ::echo %ifo:~-5%
-::echo ½ØÈ¡µÚÒ»¸öµ½µ¹ÊýµÚ6¸ö×Ö·û£º
+::echo æˆªå–ç¬¬ä¸€ä¸ªåˆ°å€’æ•°ç¬¬6ä¸ªå­—ç¬¦ï¼š
 ::echo %ifo:~0,-5%
-::echo ´ÓµÚ4¸ö×Ö·û¿ªÊ¼£¬½ØÈ¡5¸ö×Ö·û£º
+::echo ä»Žç¬¬4ä¸ªå­—ç¬¦å¼€å§‹ï¼Œæˆªå–5ä¸ªå­—ç¬¦ï¼š
 ::echo %ifo:~3,5%
-::echo ´Óµ¹ÊýµÚ14¸ö×Ö·û¿ªÊ¼£¬½ØÈ¡5¸ö×Ö·û£º
+::echo ä»Žå€’æ•°ç¬¬14ä¸ªå­—ç¬¦å¼€å§‹ï¼Œæˆªå–5ä¸ªå­—ç¬¦ï¼š
 ::echo %ifo:~-14,5%
 set outputPath=%currentPath%\output\
 if not exist %outputPath% md %outputPath%
@@ -42,63 +52,43 @@ if "%isZipalign%"=="true" (
 	set signedFilePath=%outputPath%%fineName:~0,-4%_signed.apk
 )
 
-echo libPath:%libPath%
-echo checkV2Path:%checkV2JarFilePath%
-echo wallePath:%walleJarFilePath%
-echo sdkPath:%sdkPath%
-echo keyPath:%keyPath%
-echo alias:%alias%
-echo keyPassword:%keyPassword%
-echo storePassword:%storePassword%
-echo filePath:%filePath%
-echo signedFilePath:%signedFilePath%
-echo zipalignFilePath:%zipalignFilePath%
-echo outputFilePath:%outputFilePath%
-echo channelFilePath:%channelFilePath%
-echo isWriteChannel:%isWriteChannel%
-echo isZipalign:%isZipalign% 
 
-::»ñÈ¡ÅÌ·û
-%sdkPath:~0,2% 
-cd  %sdkPath%
-::¶ÔÆë
 if "%isZipalign%"=="true" (
-	::Èç¹û´æÔÚ¶ÔÆëÎÄ¼þ¾ÍÉ¾³ý
+	
 	if exist %zipalignFilePath% del %zipalignFilePath%
-	call zipalign -v 4 %filePath% %zipalignFilePath%
+	call %sdkPath%\zipalign -v 4 %filePath% %zipalignFilePath%
 )
 
-::Èç¹û´æÔÚÇ©ÃûÎÄ¼þ¾ÍÉ¾³ý
+::å¦‚æžœå­˜åœ¨ç­¾åæ–‡ä»¶å°±åˆ é™¤
 if exist %signedFilePath% del %signedFilePath%
-::Ç©Ãû
+::ç­¾å
 if "%isZipalign%"=="true" (
-	call apksigner sign --ks %keyPath% --ks-key-alias %alias% --ks-pass pass:%storePassword% --key-pass pass:%keyPassword% --out %signedFilePath% %zipalignFilePath%  
-	::É¾³ý¶ÔÆëÎÄ¼þ£¬ÒòÎªÕâ¸öÎÄ¼þÊÇÓÃÀ´¶ÔÆëºóÔÙÇ©ÃûµÄ£¬Ç©ÃûÍê³É¾ÍÓÐÓÃÁË
+	call %sdkPath%\apksigner sign --ks %keyPath% --ks-key-alias %alias% --ks-pass pass:%storePassword% --key-pass pass:%keyPassword% --out %signedFilePath% %zipalignFilePath% 
+	::åˆ é™¤å¯¹é½æ–‡ä»¶ï¼Œå› ä¸ºè¿™ä¸ªæ–‡ä»¶æ˜¯ç”¨æ¥å¯¹é½åŽå†ç­¾åçš„ï¼Œç­¾åå®Œæˆå°±æ²¡æœ‰ç”¨äº†
 	del %zipalignFilePath%
 ) else (
-	call apksigner sign --ks %keyPath% --ks-key-alias %alias% --ks-pass pass:%storePassword% --key-pass pass:%keyPassword% --out %signedFilePath% %filePath%
+	call %sdkPath%\apksigner sign --ks %keyPath% --ks-key-alias %alias% --ks-pass pass:%storePassword% --key-pass pass:%keyPassword% --out %signedFilePath% %filePath%
 )
 
 
-::»ñÈ¡libPathÅÌ·û
-%libPath:~0,2% 
-cd  %libPath%
 
-::¼ì²éV2Ç©ÃûÊÇ·ñÕýÈ·
+::èŽ·å–libPathç›˜ç¬¦
+::%libPath:~0,2% 
+::cd  %libPath%
 
+::æ£€æŸ¥V2ç­¾åæ˜¯å¦æ­£ç¡®
 call java -jar %checkV2JarFilePath% %signedFilePath%
 
-:: ´´½¨Êä³öÎÄ¼þ¼Ð
-if not exist %outputFilePath% md %outputFilePath%
-
-
-::Ð´ÈëÇþµÀ
+::å†™å…¥æ¸ é“
 if "%isWriteChannel%"=="true" ( 
+	:: åˆ›å»ºè¾“å‡ºæ–‡ä»¶å¤¹
+	if not exist %outputFilePath% md %outputFilePath%
+
 	call java -jar %walleJarFilePath% batch -f %channelFilePath% %signedFilePath% %outputFilePath%
 )
 
-if "%errorlevel%"=="0" (echo success,please press any key to exitÇë°´ÈÎÒâ¼üÍË³ö) else (echo error) 
-::rem ³ÌÐò´í»á·µ»Ø1£¬³É¹¦Îª0
+if "%errorlevel%"=="0" (echo success,please press any key to exit) else (echo error) 
+::rem ç¨‹åºé”™ä¼šè¿”å›ž1ï¼ŒæˆåŠŸä¸º0
 
 ::pause>nul
 
