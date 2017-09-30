@@ -1,4 +1,4 @@
-ï»¿:: ä»Žkeystore èŽ·å–MD5å’Œsha1
+:: ´Ókeystore »ñÈ¡MD5ºÍsha1
 @echo off
 setlocal EnableDelayedExpansion 
 
@@ -6,51 +6,96 @@ set currentPath=%cd%
 set md5File=%currentPath%\md5AndSha1.txt
 set javaPath=%JAVA_HOME%\bin
 
-for /f "tokens=1,2 delims==" %%i in (%currentPath%\GetMd5Config.properties) do (
-if "%%i"=="keyPath" set keyPath=%%j
-if "%%i"=="alias" set alias=%%j
-if "%%i"=="storePassword" set storePassword=%%j
-)
+::for /f "tokens=1,2 delims==" %%i in (%currentPath%\GetMd5Config.properties) do (
+::if "%%i"=="keyPath" set keyPath="%%j"
+::)
+
+
+:: »ñÈ¡×Ö·û´®³¤¶È£¬½«strlenº¯ÊýÄÚÁ²µ½±äÁ¿_strlenÖÐ,²âÊÔ×Ö·û´®³¤¶ÈÐ¡ÓÚ4096£»Èë¿Ú²ÎÊý#1£¬·µ»Ø±äÁ¿##
+set "_strlen=set $=^!#1^!#&set ##=&(for %%a in (2048 1024 512 256 128 64 32 16)do if ^!$:~%%a^!. NEQ . set/a##+=%%a&set $=^!$:~%%a^!)&set $=^!$^!fedcba9876543210&set/a##+=0x^!$:~16,1^!"
+
+
+if exist %md5File% del %md5File%
 
 set dropFile=%1
-if defined dropFile (set keyPath=%dropFile%) 
+if defined dropFile (set keyPath="%dropFile%") else goto endof
 
-::èŽ·å–ç›˜ç¬¦
-%javaPath:~0,2% 
-cd %javaPath%
-keytool -list -keystore %keyPath% -alias %alias% -v -storepass %storePassword%>%md5File%
-
+::ÊäÈëÃÜÂë
+set /p storePassword=please input password
+::keytool -list -keystore %keyPath% -alias %alias% -v -storepass %storePassword%>%md5File%
+call "%javaPath%\keytool" -list -v -keystore %keyPath% -storepass %storePassword%>%md5File%
 set md5=
 set sha1=
 set sha256=
 set line=0
-
+set alias=
 
 for /f "delims=" %%i in (%md5File%) do (
     set /a line+=1
     echo %%i
     ::if %%i|findstr "md5" (echo hasmd5) else (echo has not md5)
-    if !line!==11 (set md5=%%i)
-    if !line!==12 (set sha1=%%i)
-    if !line!==13 (set sha256=%%i)   
+    if !line!==4 (set alias=%%i)
+    if !line!==14 (set md5=%%i)
+    if !line!==15 (set sha1=%%i)
+    if !line!==16 (set sha256=%%i)   
 )
 
-del %md5File%
 
-::åŽ»æŽ‰å†’å·
+echo "¡î%md5%¡î"
+echo "¡î%sha1%¡î"
+echo "¡î%sha256%¡î"
+::É¾³ýMD5 ×ó¿Õ¸ñ
+:intercept_md5_left
+if "%md5:~0,1%"==" " set "md5=%md5:~1%"&goto intercept_md5_left
+if "%md5:~0,1%"=="	" set "md5=%md5:~1%"&goto intercept_md5_left
+
+::É¾³ýMD5 ÓÒ¿Õ¸ñ
+:intercept_md5_right
+if "%md5:~-1%"==" " set "md5=%md5:~0,-1%"&goto intercept_md5_right
+
+::É¾³ýsha1 ×ó¿Õ¸ñ
+:intercept_sha1_left
+if "%sha1:~0,1%"==" " set "sha1=%sha1:~1%"&goto intercept_sha1_left
+if "%sha1:~0,1%"=="	" set "sha1=%sha1:~1%"&goto intercept_sha1_left
+
+::É¾³ýsha1 ÓÒ¿Õ¸ñ
+:intercept_sha1_right
+if "%sha1:~-1%"==" " set "sha1=%sha1:~0,-1%"&goto intercept_sha1_right
+
+::É¾³ýsha256 ×ó¿Õ¸ñ
+:intercept_sha256_left
+if "%sha256:~0,1%"==" " set "sha256=%sha256:~1%"&goto intercept_sha256_left
+if "%sha256:~0,1%"=="	" set "sha256=%sha256:~1%"&goto intercept_sha256_left
+
+::É¾³ýsha256 ÓÒ¿Õ¸ñ
+:intercept_sha256_right
+if "%sha256:~-1%"==" " set "sha256=%sha256:~0,-1%"&goto intercept_sha256_right
+
+
+::È¥µôÃ°ºÅ
 set md5=!md5:^:=!
-
+echo "¡î%md5%¡î"
 set "down=a b c d e f g h i j k l m n o p q r s t u v w x y z"  
-::è½¬æ¢æˆå°å†™
+::×ª»»³ÉÐ¡Ð´
 call :downcase "%md5%" result
 set md5=%result%   
-::set md5=%result:~6,32%   
+::set md5=%result:~6%   
 ::set sha1=%sha1:~8,59%
+
+::É¾³ýÔ­À´±£´æµÄÎÄ¼þ£¬ÒòÎªÔ­À´µÄÄÚÈÝÊÇÈ«²¿ÄÚÈÝ£¬¶øÏÖÔÚÎÒÃÇÒªµÄÖ»ÊÇ²¿·ÖÄÚÈÝ£¬ËùÒÔÏÈÉ¾³ý£¬ÔÙÖØÐÂÐ´ÈëÐÂÊý¾Ý
+del %md5File%
+
+::°ÑÐèÒªµÄÄÚÈÝÐ´ÈëÎÄ¼þ
 echo %md5%>>%md5File%
 echo %sha1% >>%md5File%
 echo %sha256% >>%md5File%
+echo alias%alias% >>%md5File%
 
-::è½¬æ¢æˆå°å†™
+::ÓÃ¼ÇÊÂ±¾´ò¿ª
+call start notepad %md5File%
+
+
+::×ª»»³ÉÐ¡Ð´
 :downcase  
 setlocal enabledelayedexpansion   
 set $=&set "#=%~1"  
@@ -58,3 +103,9 @@ if defined # (
     for %%a in (%down%) do set #=!#:%%a=%%a!  
 )  
 endlocal&set "%~2=%#%"&exit/b  
+
+:endof
+echo please drop keystore file onto this bat ÇëÒÔÍÏ¶¯keystoreÎÄ¼þµ½batÉÏµÄÐÎÊ½´ò¿ª£¬²»Ö§³ÖË«»÷´ò¿ª
+echo please put any key to exit °´ÈÎÒâ¼üÍË³ö
+pause>nul
+

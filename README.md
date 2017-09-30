@@ -63,17 +63,13 @@ Jay-Goo写了个python脚本，非常棒，但是不是所有人都安装了pyth
 
 #  获取keystore文件的md5签名脚本  GetMd5FromKeystore.bat  
 ##  使用方法 
-1. 只需要两个文件GetMd5FromKeystore.bat   和 GetMd5Config.properties
-2. 修改 GetMd5Config.properties 的内容；
-    * keyPath： keystore的文件路径  
-    * alias： 别名
-    * storePassword： store的密码    
-3. 双击GetMd5FromKeystore.bat 执行就自动生成了一个md5AndSha1.txt文件  
+1. 只需要拖动keystore文件到GetMd5FromKeystore.bat上，记住是拖动哦，不支持双击打开，拖到bat上会弹出请输入密码的提示，输入密码后会生成一个文件md5AndSha1.txt在当前目录，并且自动打开，如果没有自动打开，请手动打开。如果打开乱码请使用记事本打开。
+
 里面内容包含
 md5 1cfcc9b5351280db9955b4207ee8cb23                                                       
 SHA1: BA:F8:BB:E8:EA:13:94:69:BB:26:1B:34:7E:C7:F5:84:07:CB:FD:30 
 SHA256: 7E:EC:2D:88:BA:3F:0C:3C:9F:77:18:72:54:0C:59:35:E7:82:41:57:C3:EB:41:C0:97:98:32:C8:CC:EB:A6:D7 
-
+alias别名: myAlias 
 
 
 
