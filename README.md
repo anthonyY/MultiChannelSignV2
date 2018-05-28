@@ -68,7 +68,7 @@ java -jar D:\xxx\libs\walle-cli-all.jar batch -f D:\xxx\channel D:\xxx\app_signe
 
 ## 多渠道写入脚本 writeChannels.bat  
 ###  使用方法 
-1. 添加渠道文件channel, 不需要后缀名，需要多少个渠道一行一行写上去就行，如果纯粹想重新签名，不需要分渠道的，请忽略这一步；
+1. 添加渠道文件channel, 不需要后缀名，需要多少个渠道一行一行写上去就行。
 2. 然后把apk 拖动到writeChannels.bat上即可。
 
 
